@@ -50,7 +50,13 @@ const signup = async (email, password, name) => {
     return login(email, password);
 }
 
+const logout = async (refreshToken) => {
+    // remove refresh token from db
+    await User.findOneAndUpdate({ refreshToken }, { refreshToken: '' });
+}
+
 module.exports = {
     login,
     signup,
+    logout
 }

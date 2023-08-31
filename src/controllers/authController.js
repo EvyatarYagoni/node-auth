@@ -41,7 +41,21 @@ const signup = async (req, res) => {
     }
 }
 
+const logout = async (req, res) => {
+    try {
+        const { refreshToken } = req.cookies;
+        await userService.logout(refreshToken);
+        res.clearCookie('accessToken');
+        res.clearCookie('refreshToken');
+        console.log('Logged out successfully')
+        res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
     login,
     signup,
+    logout
 };
