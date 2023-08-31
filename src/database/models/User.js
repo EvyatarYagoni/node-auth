@@ -25,7 +25,7 @@ const schema = {
     },
     refreshToken: {
         type: String,
-        unique: true,
+        default: '',
     }
 };
 
