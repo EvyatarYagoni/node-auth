@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
     } else {
         const bearer = header.split(' ');
         const token = bearer[1];
-        jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) {
                 res.status(401).send("Unauthorized");
             } else {
