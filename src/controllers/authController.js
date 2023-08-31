@@ -9,8 +9,17 @@ const login = async (req, res) => {
             return res.status(400).json({ message: error.message });
         }
 
-        const tokens = await userService.login(email, password);
-        res.status(200).json(tokens);
+        const {accessToken, refreshToken} = await userService.login(email, password);
+
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+        });
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+        });
+
+        res.status(200).json({ message: 'Login successful' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
